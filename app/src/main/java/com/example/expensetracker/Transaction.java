@@ -94,11 +94,6 @@ public class Transaction extends AppCompatActivity {
         data.put("type", type);
         data.put("note", note);
 
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null){
-//            data.put("userUid", currentUser.getUid());
-//        }
-//
         return data;
     }
 }

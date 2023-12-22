@@ -52,12 +52,6 @@ public class HomePage extends AppCompatActivity {
         final double[] totalIncome = {0};
         final double totalExpense[] = {0};
 
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null){
-//             transactionRef = (CollectionReference) db.collection("transactions")
-//                    .whereEqualTo("userUid", currentUser.getUid());
-//        }
-
         transactionRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 double totalAmount = 0;
