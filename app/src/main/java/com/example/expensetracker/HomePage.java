@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
 
-    private Button AddButton, btnLogout;
+    private Button btnLogout;
     private TextView TvTotal, tvIncome, tvExpense;
     private ListView lvTransaction;
     private ArrayList<String> transactionList;
@@ -40,7 +40,6 @@ public class HomePage extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        AddButton = findViewById(R.id.addbutton);
         TvTotal = findViewById(R.id.tvtotal);
         lvTransaction = findViewById(R.id.lvTransaction);
         tvIncome = findViewById(R.id.tvIncome);
@@ -88,14 +87,6 @@ public class HomePage extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             } else {
                 Log.e("FirestoreError", "Error getting transactions", task.getException());
-            }
-        });
-
-        AddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomePage.this, Transaction.class);
-                startActivity(i);
             }
         });
 
@@ -169,4 +160,4 @@ public class HomePage extends AppCompatActivity {
         Intent ai = new Intent(HomePage.this, Account.class);
         startActivity(ai);
     }
-    }
+}
