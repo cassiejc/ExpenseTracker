@@ -1,17 +1,22 @@
 package com.example.expensetracker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -104,5 +109,64 @@ public class HomePage extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment selectedFragment = null;
+
+                        if (item.getItemId() == R.id.menu_home) {
+                            openHomePage();
+                            return true;
+                        } else if (item.getItemId() == R.id.menu_search) {
+                            openSearchPage();
+                            return true;
+                        } else if (item.getItemId() == R.id.menu_add) {
+                            openTransactionPage();
+                            return true;
+                        } else if (item.getItemId() == R.id.menu_spending) {
+                            openSpendingPage();
+                            return true;
+                        } else if (item.getItemId() == R.id.menu_account) {
+                            openAccountPage();
+//                            selectedFragment = new Account();
+                        }
+
+                        if (selectedFragment != null) {
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fragment_container, selectedFragment)
+                                    .commit();
+                        }
+
+                        return true;
+                    }
+                });
     }
-}
+
+    private void openHomePage() {
+        Intent i = new Intent(HomePage.this, HomePage.class);
+        startActivity(i);
+    }
+
+    private void openSearchPage() {
+        Intent intent = new Intent(HomePage.this, Search.class);
+        startActivity(intent);
+    }
+
+    private void openTransactionPage() {
+        Intent transactionIntent = new Intent(HomePage.this, Transaction.class);
+        startActivity(transactionIntent);
+    }
+
+    private void openSpendingPage() {
+        Intent intent1 = new Intent(HomePage.this, Spending.class);
+        startActivity(intent1);
+    }
+
+    private void openAccountPage(){
+        Intent ai = new Intent(HomePage.this, Account.class);
+        startActivity(ai);
+    }
+    }

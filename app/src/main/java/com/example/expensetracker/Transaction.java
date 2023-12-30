@@ -2,6 +2,7 @@ package com.example.expensetracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +18,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Transaction extends AppCompatActivity {
 
     private Spinner SpinnerCategories, SpinnerExpense;
-    private Button CancelButton, SaveButton;
+    private Button CancelButton, SaveButton, btnPickDate;
     private EditText etTransaction, etNote;
     private FirebaseAuth mAuth;
 
@@ -38,6 +40,7 @@ public class Transaction extends AppCompatActivity {
         SaveButton = findViewById(R.id.save_button);
         etTransaction = findViewById(R.id.ettransaction);
         etNote = findViewById(R.id.note_edittext);
+        btnPickDate = findViewById(R.id.btnPickDate);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -85,6 +88,25 @@ public class Transaction extends AppCompatActivity {
                         });
             }
         });
+
+        btnPickDate.setOnClickListener(v -> showDatePickerDialog());
+    }
+
+    private void showDatePickerDialog(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                    btnPickDate.setText(selectedDate);
+                    Toast.makeText(this, "Selected Date: " + selectedDate, Toast.LENGTH_SHORT).show();
+                },
+                year, month, day);
+        datePickerDialog.show();
     }
 
     private Map<String, Object> createTransactionData(String amount, String category, String type, String note) {

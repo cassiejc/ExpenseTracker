@@ -24,10 +24,26 @@
             android:textColor="@color/white"
             android:textStyle="bold"/>
 
-        <Spinner
-            android:id="@+id/expense_spinner"
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/expense_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnPickDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Pick a date" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -93,7 +109,7 @@
                 android:id="@+id/note_edittext"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:hint="Add a note (Optional)"/>
+                android:hint="Add a note (Optional)" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
